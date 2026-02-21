@@ -25,30 +25,67 @@ const passwordInput = document.getElementById('password');
 const fullNameInput = document.getElementById('full-name');
 const signoutBtn = document.getElementById('signout-btn');
 
-// Landing page elements
-const getStartedBtn = document.getElementById('get-started-btn');
-const landingSignupBtn = document.getElementById('landing-signup-btn');
+// Website header elements
+const headerLoginBtn = document.getElementById('header-login-btn');
+const headerSignupBtn = document.getElementById('header-signup-btn');
+const heroSignupBtn = document.getElementById('hero-signup-btn');
+const heroDemoBtn = document.getElementById('hero-demo-btn');
+const backHomeLink = document.getElementById('back-home-link');
 
 // Show auth section from landing
 function showAuth() {
     if (landingSection) landingSection.classList.add('hidden');
     authSection.style.display = 'flex';
+    appSection.style.display = 'none';
 }
 
-// Handle landing page buttons
-if (getStartedBtn) {
-    getStartedBtn.addEventListener('click', showAuth);
+// Show landing/homepage
+function showLanding() {
+    if (landingSection) landingSection.classList.remove('hidden');
+    authSection.style.display = 'none';
+    appSection.style.display = 'none';
 }
 
-if (landingSignupBtn) {
-    landingSignupBtn.addEventListener('click', () => {
+// Handle header buttons
+if (headerLoginBtn) {
+    headerLoginBtn.addEventListener('click', showAuth);
+}
+
+if (headerSignupBtn) {
+    headerSignupBtn.addEventListener('click', () => {
         showAuth();
-        // Automatically switch to signup mode
+        // Switch to signup mode
         isSignUp = true;
         authToggleText.textContent = 'Already have an account?';
         authToggleLink.textContent = 'Sign In';
         authBtn.textContent = 'Sign Up';
         signupFields.style.display = 'block';
+    });
+}
+
+if (heroSignupBtn) {
+    heroSignupBtn.addEventListener('click', () => {
+        showAuth();
+        // Switch to signup mode
+        isSignUp = true;
+        authToggleText.textContent = 'Already have an account?';
+        authToggleLink.textContent = 'Sign In';
+        authBtn.textContent = 'Sign Up';
+        signupFields.style.display = 'block';
+    });
+}
+
+if (heroDemoBtn) {
+    heroDemoBtn.addEventListener('click', () => {
+        alert('Demo video coming soon! In the meantime, sign up for a free account to try it out.');
+    });
+}
+
+// Back to home link
+if (backHomeLink) {
+    backHomeLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showLanding();
     });
 }
 
@@ -120,7 +157,7 @@ signoutBtn.addEventListener('click', async () => {
     try {
         await supabase.auth.signOut();
         currentUser = null;
-        showAuth();
+        showLanding();
     } catch (error) {
         alert(error.message);
     }
@@ -137,12 +174,6 @@ async function checkSession() {
 }
 
 // Show/Hide Sections
-function showAuth() {
-    if (landingSection) landingSection.classList.add('hidden');
-    authSection.style.display = 'flex';
-    appSection.style.display = 'none';
-}
-
 function showApp() {
     if (landingSection) landingSection.classList.add('hidden');
     authSection.style.display = 'none';
@@ -157,7 +188,7 @@ checkSession();
 supabase.auth.onAuthStateChange((event, session) => {
     if (event === 'SIGNED_OUT') {
         currentUser = null;
-        showAuth();
+        showLanding();
     } else if (session) {
         currentUser = session.user;
         showApp();

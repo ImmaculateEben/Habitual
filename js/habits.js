@@ -27,6 +27,16 @@ const daysGroup = document.getElementById('days-group');
 
 // Load Habits
 async function loadHabits() {
+    // Check if demo mode
+    if (currentUser && currentUser.id === 'demo-user-123') {
+        // Demo mode - use in-memory data
+        renderHabitsList();
+        if (habits.length > 0 && !selectedHabitId) {
+            selectHabit(habits[0].id);
+        }
+        return;
+    }
+    
     try {
         const { data, error } = await supabase
             .from('habits')
@@ -143,6 +153,9 @@ function selectHabit(id) {
     
     // Render heatmap
     renderHeatmap(habit, logs);
+    
+    // Render completion chart
+    renderCompletionChart(habit, logs);
 }
 
 // Toggle Check-in

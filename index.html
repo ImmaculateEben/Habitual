@@ -11,57 +11,404 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <!-- Landing Page -->
-    <div id="landing-section" class="landing-container">
-        <div class="landing-content">
-            <div class="landing-header">
-                <div class="landing-logo">🔥</div>
-                <h1 class="landing-title">Habitual</h1>
+    <!-- Website Homepage -->
+    <div id="landing-section">
+        <!-- Header -->
+        <header class="site-header">
+            <div class="container header-content">
+                <div class="logo">
+                    <span class="logo-icon">🔥</span>
+                    <span class="logo-text">Habitual</span>
+                </div>
+                <nav class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#testimonials">Testimonials</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#faq">FAQ</a>
+                </nav>
+                <div class="header-buttons">
+                    <button id="header-login-btn" class="btn btn-ghost">Log In</button>
+                    <button id="header-signup-btn" class="btn btn-primary">Sign Up</button>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
             </div>
-            
-            <div class="hero-section">
-                <h2>Build Better Habits,<br>One Day at a Time</h2>
-                <p>Track your daily habits, maintain streaks, and watch your progress grow with powerful analytics and beautiful visualizations.</p>
-                <button id="get-started-btn" class="btn btn-primary btn-large">Get Started →</button>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge">🚀 Now with AI-powered insights</div>
+                    <h1 class="hero-title">Build Better Habits,<br>One Day at a Time</h1>
+                    <p class="hero-description">Transform your life with Habitual. Track daily habits, maintain streaks, and watch your progress grow with powerful analytics and beautiful visualizations.</p>
+                    <div class="hero-buttons">
+                        <button id="hero-signup-btn" class="btn btn-primary btn-large">Start Free Trial</button>
+                        <button id="hero-demo-btn" class="btn btn-outline btn-large">Watch Demo</button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">50K+</span>
+                            <span class="stat-label">Active Users</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">2M+</span>
+                            <span class="stat-label">Habits Tracked</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">98%</span>
+                            <span class="stat-label">Satisfaction</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="app-preview">
+                        <div class="preview-header">
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                        </div>
+                        <div class="preview-content">
+                            <div class="preview-sidebar">
+                                <div class="preview-habit">🏃 Exercise <span class="streak">🔥 15</span></div>
+                                <div class="preview-habit">📚 Read <span class="streak">🔥 8</span></div>
+                                <div class="preview-habit">🧘 Meditate <span class="streak">🔥 22</span></div>
+                            </div>
+                            <div class="preview-main">
+                                <div class="preview-stats">
+                                    <div class="preview-stat">
+                                        <span class="value">15</span>
+                                        <span class="label">Day Streak</span>
+                                    </div>
+                                    <div class="preview-stat">
+                                        <span class="value">87%</span>
+                                        <span class="label">Completion</span>
+                                    </div>
+                                </div>
+                                <div class="preview-heatmap">
+                                    <div class="heatmap-row">
+                                        <div class="h-cell done"></div><div class="h-cell done"></div><div class="h-cell done"></div><div class="h-cell done"></div><div class="h-cell done"></div><div class="h-cell done"></div><div class="h-cell done"></div>
+                                        <div class="h-cell done"></div><div class="h-cell done"></div><div class="h-cell done"></div><div class="h-cell done"></div><div class="h-cell done"></div><div class="h-cell done"></div><div class="h-cell"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Track Habits</h3>
-                    <p>Create habits with daily or weekly schedules. Check in easily and track your progress.</p>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Features</span>
+                    <h2>Everything You Need to Succeed</h2>
+                    <p>Powerful tools to help you build lasting habits and achieve your goals.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔥</div>
-                    <h3>Build Streaks</h3>
-                    <p>Stay motivated with streak tracking. Watch your consistency grow day by day.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Visual Analytics</h3>
-                    <p>See your progress with heatmaps, charts, and completion rate statistics.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌙</div>
-                    <h3>Dark Mode</h3>
-                    <p>Easy on the eyes with automatic dark mode support.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📁</div>
-                    <h3>Export Data</h3>
-                    <p>Export and import your data anytime. Your habits, your control.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Private & Secure</h3>
-                    <p>Your data is secured with Row Level Security. Only you can see your habits.</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Smart Habit Tracking</h3>
+                        <p>Create habits with flexible schedules - daily, weekly, or custom days. Track your progress with ease.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔥</div>
+                        <h3>Streak System</h3>
+                        <p>Stay motivated with streak tracking. Watch your consistency grow and earn achievements.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Visual Analytics</h3>
+                        <p>See your progress with beautiful heatmaps, charts, and completion rate statistics.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌙</div>
+                        <h3>Dark Mode</h3>
+                        <p>Easy on the eyes with automatic dark mode support that follows your system preferences.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Mobile First</h3>
+                        <p>Access your habits anywhere with our responsive design that works perfectly on all devices.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Private & Secure</h3>
+                        <p>Your data is secured with Row Level Security. Only you can see your habits.</p>
+                    </div>
                 </div>
             </div>
-            
-            <div class="landing-footer">
-                <p>Ready to transform your life? <button id="landing-signup-btn" class="btn btn-outline">Sign Up Free</button></p>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">How It Works</span>
+                    <h2>Start Building Better Habits in 3 Steps</h2>
+                </div>
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Create Your Habit</h3>
+                        <p>Add habits you want to build with custom schedules that fit your lifestyle.</p>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Track Daily</h3>
+                        <p>Check in each day to mark your progress. Add notes to reflect on your journey.</p>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Watch Progress</h3>
+                        <p>See your streaks grow and view beautiful analytics that motivate you to keep going.</p>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Testimonials</span>
+                    <h2>Loved by Thousands</h2>
+                    <p>See what our users have to say about transforming their lives with Habitual.</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"Habitual completely changed my morning routine. I've been exercising every day for 6 months now - never thought I could be this consistent!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👨‍💼</div>
+                            <div class="author-info">
+                                <span class="author-name">Michael Chen</span>
+                                <span class="author-title">Product Manager</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"The streak feature is incredibly motivating. I love seeing my heatmap fill up - it's like a game I don't want to lose!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👩‍🎨</div>
+                            <div class="author-info">
+                                <span class="author-name">Sarah Johnson</span>
+                                <span class="author-title">Graphic Designer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"Finally an app that actually works! Simple, clean, and effective. I've recommended it to everyone I know."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👨‍🏫</div>
+                            <div class="author-info">
+                                <span class="author-name">David Park</span>
+                                <span class="author-title">Teacher</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"I used to struggle with habit tracking until I found Habitual. The analytics help me understand my patterns and stay on track."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👩‍⚕️</div>
+                            <div class="author-info">
+                                <span class="author-name">Emily Rodriguez</span>
+                                <span class="author-title">Nurse</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"The dark mode is a game changer for night owls like me. Beautiful design and super intuitive to use."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👨‍💻</div>
+                            <div class="author-info">
+                                <span class="author-name">Alex Turner</span>
+                                <span class="author-title">Software Developer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"I've tried dozens of habit apps - this is by far the best. The simplicity is what makes it so effective."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👩‍🎓</div>
+                            <div class="author-info">
+                                <span class="author-name">Jessica Lee</span>
+                                <span class="author-title">Student</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="pricing-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Pricing</span>
+                    <h2>Simple, Transparent Pricing</h2>
+                    <p>Start free and upgrade when you're ready for more features.</p>
+                </div>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3>Free</h3>
+                            <div class="price">
+                                <span class="currency">$</span>
+                                <span class="amount">0</span>
+                                <span class="period">/month</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>✓ Up to 5 habits</li>
+                            <li>✓ Basic analytics</li>
+                            <li>✓ Streak tracking</li>
+                            <li>✓ Dark mode</li>
+                            <li>✓ Mobile access</li>
+                        </ul>
+                        <button class="btn btn-outline btn-full">Get Started</button>
+                    </div>
+                    <div class="pricing-card featured">
+                        <div class="featured-badge">Most Popular</div>
+                        <div class="pricing-header">
+                            <h3>Pro</h3>
+                            <div class="price">
+                                <span class="currency">$</span>
+                                <span class="amount">4.99</span>
+                                <span class="period">/month</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>✓ Unlimited habits</li>
+                            <li>✓ Advanced analytics</li>
+                            <li>✓ Data export</li>
+                            <li>✓ Priority support</li>
+                            <li>✓ Custom themes</li>
+                            <li>✓ API access</li>
+                        </ul>
+                        <button class="btn btn-primary btn-full">Start Free Trial</button>
+                    </div>
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3>Team</h3>
+                            <div class="price">
+                                <span class="currency">$</span>
+                                <span class="amount">9.99</span>
+                                <span class="period">/month</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>✓ Everything in Pro</li>
+                            <li>✓ Team management</li>
+                            <li>✓ Shared habits</li>
+                            <li>✓ Admin dashboard</li>
+                            <li>✓ SSO integration</li>
+                            <li>✓ Dedicated support</li>
+                        </ul>
+                        <button class="btn btn-outline btn-full">Contact Sales</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">FAQ</span>
+                    <h2>Frequently Asked Questions</h2>
+                </div>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h4>Is Habitual free to use?</h4>
+                        <p>Yes! Our free plan includes up to 5 habits with all core features. You can upgrade to Pro anytime for unlimited habits and advanced features.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Can I use Habitual on multiple devices?</h4>
+                        <p>Absolutely! Your data syncs across all your devices. Start tracking on your phone and continue on your computer.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Is my data secure?</h4>
+                        <p>Yes, we use bank-level encryption and your data is stored securely. We never share your personal information.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Can I export my data?</h4>
+                        <p>Yes, you can export all your data at any time in JSON or CSV format from the settings menu.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Ready to Transform Your Life?</h2>
+                    <p>Join thousands of people building better habits with Habitual.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-white btn-large">Start Free Trial</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="logo">
+                            <span class="logo-icon">🔥</span>
+                            <span class="logo-text">Habitual</span>
+                        </div>
+                        <p>Build better habits, one day at a time. Transform your life with powerful habit tracking.</p>
+                        <div class="social-links">
+                            <a href="#" aria-label="Twitter">🐦</a>
+                            <a href="#" aria-label="Facebook">📘</a>
+                            <a href="#" aria-label="Instagram">📷</a>
+                            <a href="#" aria-label="LinkedIn">💼</a>
+                        </div>
+                    </div>
+                    <div class="footer-links">
+                        <h4>Product</h4>
+                        <a href="#features">Features</a>
+                        <a href="#pricing">Pricing</a>
+                        <a href="#">Download</a>
+                        <a href="#">Integrations</a>
+                    </div>
+                    <div class="footer-links">
+                        <h4>Company</h4>
+                        <a href="#">About Us</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Press</a>
+                    </div>
+                    <div class="footer-links">
+                        <h4>Support</h4>
+                        <a href="#">Help Center</a>
+                        <a href="#">Contact Us</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 Habitual. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
     </div>
     
     <!-- Auth Section -->
@@ -91,6 +438,10 @@
                 <span id="auth-toggle-text">Don't have an account?</span>
                 <a href="#" id="auth-toggle-link">Sign Up</a>
             </p>
+            
+            <div class="back-to-home">
+                <a href="#" id="back-home-link">← Back to Home</a>
+            </div>
         </div>
     </div>
 
