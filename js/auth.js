@@ -11,17 +11,10 @@ window.supabaseReady.then((sb) => {
 });
 
 function initializeAuth() {
-    // Skip landing page - show auth directly
+    // Get all DOM elements first
     const landingSection = document.getElementById('landing-section');
-    if (landingSection) {
-        landingSection.style.display = 'none';
-    }
-    
-    // Show auth section directly
     const authSection = document.getElementById('auth-section');
-    if (authSection) {
-        authSection.style.display = 'flex';
-    }
+    const appSection = document.getElementById('app-section');
     const authForm = document.getElementById('auth-form');
     const authBtn = document.getElementById('auth-btn');
     const authToggleLink = document.getElementById('auth-toggle-link');
@@ -32,28 +25,21 @@ function initializeAuth() {
     const fullNameInput = document.getElementById('full-name');
     const signoutBtn = document.getElementById('signout-btn');
 
-    // Website header elements
-    const headerLoginBtn = document.getElementById('header-login-btn');
-    const headerSignupBtn = document.getElementById('header-signup-btn');
-    const heroSignupBtn = document.getElementById('hero-signup-btn');
-    const heroDemoBtn = document.getElementById('hero-demo-btn');
-    const backHomeLink = document.getElementById('back-home-link');
+    // Hide landing page and show auth
+    if (landingSection) {
+        landingSection.style.display = 'none';
+    }
+    if (authSection) {
+        authSection.style.display = 'flex';
+    }
 
     // Show auth section
     function showAuth() {
-        // Already on auth section, just ensure it's visible
         if (authSection) authSection.style.display = 'flex';
         if (appSection) appSection.style.display = 'none';
     }
 
-    // Show landing/homepage - now shows auth instead
-    function showLanding() {
-        // Show auth section instead of landing page
-        if (authSection) authSection.style.display = 'flex';
-        if (appSection) appSection.style.display = 'none';
-    }
-
-    // Show app
+    // Show app (dashboard)
     function showApp() {
         if (landingSection) landingSection.style.display = 'none';
         if (authSection) authSection.style.display = 'none';
@@ -63,52 +49,9 @@ function initializeAuth() {
         }
     }
 
-    // Handle header buttons
-    if (headerLoginBtn) {
-        headerLoginBtn.addEventListener('click', showAuth);
-    }
-
-    if (headerSignupBtn) {
-        headerSignupBtn.addEventListener('click', () => {
-            showAuth();
-            // Switch to signup mode
-            isSignUp = true;
-            authToggleText.textContent = 'Already have an account?';
-            authToggleLink.textContent = 'Sign In';
-            authBtn.textContent = 'Sign Up';
-            signupFields.style.display = 'block';
-        });
-    }
-
-    if (heroSignupBtn) {
-        heroSignupBtn.addEventListener('click', () => {
-            showAuth();
-            // Switch to signup mode
-            isSignUp = true;
-            authToggleText.textContent = 'Already have an account?';
-            authToggleLink.textContent = 'Sign In';
-            authBtn.textContent = 'Sign Up';
-            signupFields.style.display = 'block';
-        });
-    }
-
-    if (heroDemoBtn) {
-        heroDemoBtn.addEventListener('click', () => {
-            alert('Demo video coming soon! In the meantime, sign up for a free account to try it out.');
-        });
-    }
-
-    // Back to home link
-    if (backHomeLink) {
-        backHomeLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showLanding();
-        });
-    }
-
     // Toggle between Sign In and Sign Up
     if (authToggleLink) {
-        authToggleLink.addEventListener('click', (e) => {
+        authToggleLink.addEventListener('click', function(e) {
             e.preventDefault();
             isSignUp = !isSignUp;
             
@@ -126,9 +69,9 @@ function initializeAuth() {
         });
     }
 
-    // Handle Auth Submit
+    // Handle Auth Form Submit
     if (authForm) {
-        authForm.addEventListener('submit', async (e) => {
+        authForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
             const email = emailInput.value;
@@ -137,96 +80,80 @@ function initializeAuth() {
             authBtn.disabled = true;
             authBtn.textContent = 'Loading...';
             
-            try {
-                if (isSignUp) {
-                    const fullName = fullNameInput.value;
-                    const { data, error } = await supabase.auth.signUp({
-                        email,
-                        password,
-                        options: {
-                            data: {
-                                full_name: fullName
-                            }
+            if (isSignUp) {
+                // Sign Up
+                const fullName = fullNameInput.value;
+                supabase.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: {
+                        data: {
+                            full_name: fullName
                         }
-                    });
+                    }
+                }).then(({ data, error }) => {
+                    authBtn.disabled = false;
+                    authBtn.textContent = 'Sign Up';
                     
-                    if (error) throw error;
+                    if (error) {
+                        alert(error.message);
+                    } else {
+                        alert('Check your email for confirmation link!');
+                    }
+                });
+            } else {
+                // Sign In
+                supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                }).then(({ data, error }) => {
+                    authBtn.disabled = false;
+                    authBtn.textContent = 'Sign In';
                     
-                    alert('Check your email for confirmation link!');
-                } else {
-                    const { data, error } = await supabase.auth.signInWithPassword({
-                        email,
-                        password
-                    });
-                    
-                    if (error) throw error;
-                    
-                    currentUser = data.user;
-                    window.currentUser = data.user;
-                    showApp();
-                }
-            } catch (error) {
-                alert(error.message);
-            } finally {
-                authBtn.disabled = false;
-                authBtn.textContent = isSignUp ? 'Sign Up' : 'Sign In';
+                    if (error) {
+                        alert(error.message);
+                    } else {
+                        currentUser = data.user;
+                        window.currentUser = data.user;
+                        showApp();
+                    }
+                });
             }
         });
     }
 
     // Sign Out
     if (signoutBtn) {
-        signoutBtn.addEventListener('click', async () => {
-            try {
-                await supabase.auth.signOut();
+        signoutBtn.addEventListener('click', function() {
+            supabase.auth.signOut().then(() => {
                 currentUser = null;
                 window.currentUser = null;
-                showLanding();
-            } catch (error) {
+                showAuth();
+            }).catch((error) => {
                 alert(error.message);
-            }
+            });
         });
     }
 
-    // Check Session on Load
-    async function checkSession() {
-        try {
-            const { data: { session } } = await supabase.auth.getSession();
-            
-            if (session) {
-                currentUser = session.user;
-                showApp();
-            }
-        } catch (error) {
-            console.error('Error checking session:', error);
+    // Check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+            currentUser = session.user;
+            window.currentUser = session.user;
+            showApp();
         }
-    }
+    });
 
     // Listen for auth changes
     supabase.auth.onAuthStateChange((event, session) => {
         if (event === 'SIGNED_OUT') {
             currentUser = null;
-            showLanding();
+            window.currentUser = null;
+            showAuth();
         } else if (session) {
             currentUser = session.user;
+            window.currentUser = session.user;
             showApp();
         }
     });
-
-    // Check for existing session
-    checkSession();
-}
-
-// Make currentUser available globally
-window.getCurrentUser = function() {
-    return currentUser;
-};
-
-// Also set on window for backward compatibility
-window.currentUser = currentUser;
-
-// Update window.currentUser when it changes
-function updateCurrentUser(user) {
-    currentUser = user;
-    window.currentUser = user;
 }
