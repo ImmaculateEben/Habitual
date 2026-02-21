@@ -110,7 +110,18 @@ A beautiful, privacy-focused habit tracker built with Vanilla JavaScript and Sup
    const SUPABASE_ANON_KEY = 'your-supabase-anon-key';
    ```
 
-5. **Deploy**
+5. **Configure Supabase Authentication**
+   - Go to **Authentication** → **URL Configuration** in your Supabase dashboard
+   - Add your deployed site URL under **Site URL**:
+   ```
+   https://your-app-name.vercel.app
+   ```
+   - Also add it to **Redirect URLs**:
+   ```
+   https://your-app-name.vercel.app
+   ```
+
+6. **Deploy**
    Deploy to Vercel, Netlify, or any static hosting:
    
    - [Deploy to Vercel](https://vercel.com/new)
