@@ -1,5 +1,8 @@
 // Main App Initialization
 
+// Use the supabase client from window
+const supabase = window.supabase;
+
 // Set current date
 function setCurrentDate() {
     const now = new Date();

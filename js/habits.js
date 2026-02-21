@@ -1,5 +1,8 @@
 // Habits Module
 
+// Use the supabase client from window
+const supabase = window.supabase;
+
 let habits = [];
 let logs = [];
 let selectedHabitId = null;

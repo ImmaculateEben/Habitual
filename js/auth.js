@@ -3,6 +3,9 @@
 let isSignUp = false;
 let currentUser = null;
 
+// Use the supabase client from window
+const supabase = window.supabase;
+
 // DOM Elements
 const landingSection = document.getElementById('landing-section');
 const authSection = document.getElementById('auth-section');
