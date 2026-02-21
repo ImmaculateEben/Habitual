@@ -3,8 +3,13 @@
 let isSignUp = false;
 let currentUser = null;
 
-// Use the supabase client from window
-const supabase = window.supabase;
+// Wait for supabase to be ready before getting the client
+let supabase;
+window.supabaseReady.then((sb) => {
+    supabase = sb;
+    // Initialize auth after supabase is ready
+    checkSession();
+});
 
 // DOM Elements
 const landingSection = document.getElementById('landing-section');
