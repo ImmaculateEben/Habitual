@@ -114,11 +114,11 @@ A beautiful, privacy-focused habit tracker built with Vanilla JavaScript and Sup
    - Go to **Authentication** → **URL Configuration** in your Supabase dashboard
    - Add your deployed site URL under **Site URL**:
    ```
-   https://your-app-name.vercel.app
+   https://habitual-beryl.vercel.app
    ```
    - Also add it to **Redirect URLs**:
    ```
-   https://your-app-name.vercel.app
+   https://habitual-beryl.vercel.app
    ```
 
 6. **Deploy**
