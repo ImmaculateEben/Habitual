@@ -11,10 +11,17 @@ window.supabaseReady.then((sb) => {
 });
 
 function initializeAuth() {
-    // DOM Elements
+    // Skip landing page - show auth directly
     const landingSection = document.getElementById('landing-section');
+    if (landingSection) {
+        landingSection.style.display = 'none';
+    }
+    
+    // Show auth section directly
     const authSection = document.getElementById('auth-section');
-    const appSection = document.getElementById('app-section');
+    if (authSection) {
+        authSection.style.display = 'flex';
+    }
     const authForm = document.getElementById('auth-form');
     const authBtn = document.getElementById('auth-btn');
     const authToggleLink = document.getElementById('auth-toggle-link');
@@ -32,25 +39,25 @@ function initializeAuth() {
     const heroDemoBtn = document.getElementById('hero-demo-btn');
     const backHomeLink = document.getElementById('back-home-link');
 
-    // Show auth section from landing
+    // Show auth section
     function showAuth() {
-        if (landingSection) landingSection.classList.add('hidden');
-        authSection.style.display = 'flex';
-        appSection.style.display = 'none';
+        // Already on auth section, just ensure it's visible
+        if (authSection) authSection.style.display = 'flex';
+        if (appSection) appSection.style.display = 'none';
     }
 
-    // Show landing/homepage
+    // Show landing/homepage - now shows auth instead
     function showLanding() {
-        if (landingSection) landingSection.classList.remove('hidden');
-        authSection.style.display = 'none';
-        appSection.style.display = 'none';
+        // Show auth section instead of landing page
+        if (authSection) authSection.style.display = 'flex';
+        if (appSection) appSection.style.display = 'none';
     }
 
     // Show app
     function showApp() {
-        if (landingSection) landingSection.classList.add('hidden');
-        authSection.style.display = 'none';
-        appSection.style.display = 'block';
+        if (landingSection) landingSection.style.display = 'none';
+        if (authSection) authSection.style.display = 'none';
+        if (appSection) appSection.style.display = 'block';
         if (typeof loadHabits === 'function') {
             loadHabits();
         }
