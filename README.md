@@ -184,4 +184,5 @@ MIT License - feel free to use this project for learning or personal use.
 
 ---
 
-Built with ❤️ using Vanilla JavaScript and Supabase
+Built with ❤️ by Ebenezer.
+ 
