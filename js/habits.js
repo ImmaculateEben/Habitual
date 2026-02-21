@@ -27,13 +27,12 @@ const daysGroup = document.getElementById('days-group');
 
 // Load Habits
 async function loadHabits() {
-    // Check if demo mode
-    if (currentUser && currentUser.id === 'demo-user-123') {
-        // Demo mode - use in-memory data
-        renderHabitsList();
-        if (habits.length > 0 && !selectedHabitId) {
-            selectHabit(habits[0].id);
-        }
+    // Get current user from auth module
+    const user = window.getCurrentUser ? window.getCurrentUser() : null;
+    
+    // Check if no user
+    if (!user) {
+        console.log('No user logged in');
         return;
     }
     
@@ -41,7 +40,7 @@ async function loadHabits() {
         const { data, error } = await supabase
             .from('habits')
             .select('*')
-            .eq('user_id', currentUser.id)
+            .eq('user_id', user.id)
             .eq('is_archived', false)
             .order('created_at', { ascending: true });
         
@@ -54,7 +53,7 @@ async function loadHabits() {
         const { data: logsData, error: logsError } = await supabase
             .from('habit_logs')
             .select('*')
-            .eq('user_id', currentUser.id)
+            .eq('user_id', user.id)
             .order('log_date', { ascending: false });
         
         if (logsError) throw logsError;
