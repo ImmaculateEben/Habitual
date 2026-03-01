@@ -24,19 +24,124 @@ function initializeAuth() {
     const passwordInput = document.getElementById('password');
     const fullNameInput = document.getElementById('full-name');
     const signoutBtn = document.getElementById('signout-btn');
+    
+    // Landing page buttons
+    const headerLoginBtn = document.getElementById('header-login-btn');
+    const headerSignupBtn = document.getElementById('header-signup-btn');
+    const heroSignupBtn = document.getElementById('hero-signup-btn');
+    const backHomeLink = document.getElementById('back-home-link');
 
-    // Hide landing page and show auth
+    // Show landing page by default (home page)
     if (landingSection) {
-        landingSection.style.display = 'none';
+        landingSection.style.display = 'block';
     }
     if (authSection) {
-        authSection.style.display = 'flex';
+        authSection.style.display = 'none';
+    }
+
+    // Show landing page (home)
+    function showLanding() {
+        if (landingSection) landingSection.style.display = 'block';
+        if (authSection) authSection.style.display = 'none';
+        if (appSection) appSection.style.display = 'none';
     }
 
     // Show auth section
     function showAuth() {
+        if (landingSection) landingSection.style.display = 'none';
         if (authSection) authSection.style.display = 'flex';
         if (appSection) appSection.style.display = 'none';
+    }
+
+    // Show landing page navigation
+    if (headerLoginBtn) {
+        headerLoginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            isSignUp = false;
+            authToggleText.textContent = "Don't have an account?";
+            authToggleLink.textContent = 'Sign Up';
+            authBtn.textContent = 'Sign In';
+            signupFields.style.display = 'none';
+            showAuth();
+        });
+    }
+
+    if (headerSignupBtn) {
+        headerSignupBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            isSignUp = true;
+            authToggleText.textContent = 'Already have an account?';
+            authToggleLink.textContent = 'Sign In';
+            authBtn.textContent = 'Sign Up';
+            signupFields.style.display = 'block';
+            showAuth();
+        });
+    }
+
+    if (heroSignupBtn) {
+        heroSignupBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            isSignUp = true;
+            authToggleText.textContent = 'Already have an account?';
+            authToggleLink.textContent = 'Sign In';
+            authBtn.textContent = 'Sign Up';
+            signupFields.style.display = 'block';
+            showAuth();
+        });
+    }
+
+    if (backHomeLink) {
+        backHomeLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            showLanding();
+        });
+    }
+
+    // Watch Demo button - scroll to features
+    const heroDemoBtn = document.getElementById('hero-demo-btn');
+    if (heroDemoBtn) {
+        heroDemoBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const featuresSection = document.getElementById('features');
+            if (featuresSection) {
+                featuresSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+
+    // Smooth scroll for navigation links
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    });
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const navLinksContainer = document.querySelector('.nav-links');
+    
+    if (mobileMenuBtn && navLinksContainer) {
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinksContainer.classList.toggle('mobile-open');
+        });
+    }
+
+    // Dark mode toggle for landing page
+    const darkModeBtn = document.getElementById('dark-mode-btn');
+    if (darkModeBtn) {
+        darkModeBtn.addEventListener('click', function() {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            darkModeBtn.textContent = isDark ? '🌙' : '☀️';
+        });
     }
 
     // Show app (dashboard)
@@ -128,7 +233,7 @@ function initializeAuth() {
             supabase.auth.signOut().then(() => {
                 currentUser = null;
                 window.currentUser = null;
-                showAuth();
+                showLanding();
             }).catch((error) => {
                 alert(error.message);
             });
@@ -142,6 +247,7 @@ function initializeAuth() {
             window.currentUser = session.user;
             showApp();
         }
+        // If no session, show landing page (home)
     });
 
     // Listen for auth changes
@@ -149,7 +255,7 @@ function initializeAuth() {
         if (event === 'SIGNED_OUT') {
             currentUser = null;
             window.currentUser = null;
-            showAuth();
+            showLanding();
         } else if (session) {
             currentUser = session.user;
             window.currentUser = session.user;

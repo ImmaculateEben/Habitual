@@ -815,6 +815,16 @@ body {
     z-index: 100;
 }
 
+[data-theme="dark"] .site-header {
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom: 1px solid var(--border);
+}
+
+[data-theme="dark"] .site-header .logo-text,
+[data-theme="dark"] .nav-links a {
+    color: var(--text);
+}
+
 .header-content {
     display: flex;
     align-items: center;
@@ -1526,6 +1536,19 @@ body {
     .nav-links,
     .header-buttons {
         display: none;
+    }
+    
+    .nav-links.mobile-open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 20px;
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     
     .mobile-menu-btn {
